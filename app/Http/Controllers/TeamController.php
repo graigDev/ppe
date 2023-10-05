@@ -15,9 +15,9 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
+    public function index(Request $request): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        $teams = Team::get();
+        $teams = Team::search($request->search)->get();
 
         return view('services.team.index', compact('teams'));
     }

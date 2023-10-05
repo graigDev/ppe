@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false, search: '' }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -15,21 +15,38 @@
 
                 <!-- Navigation Links -->
                 @auth
-                    <div class="hidden space-x-8 sm:-my-px sm:flex items-center w-[400px]">
-                        <form method="get" action="" class="flex w-full space-x-2" autocomplete="off">
+                    <div class="hidden sm:-my-px sm:flex items-center w-[400px] relative">
+                        <div class="flex w-full space-x-2">
                             <div class="flex-grow relative">
                                 <x-text-input
                                     name="search"
                                     class="w-full"
+                                    x-model="search"
                                     placeholder="Recherche globale"
+                                    autocomplete="off"
                                 />
                             </div>
-                            <x-secondary-button type="submit">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </x-secondary-button>
-                        </form>
+                        </div>
+
+                        <div x-cloak x-show="search.length > 0" class="absolute top-14 left-0 right-0 bg-white shadow-sm overflow-hidden border rounded z-10">
+                            <ul class="text-sm p-2">
+                                <li>
+                                    <a :href="'{{ route('files.index') }}?search=' + search" class="block w-full px-3 py-2 hover:bg-gray-50 rounded">
+                                        Documents / <span class="text-sm text-gray-500" x-text="search"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a :href="'{{ route('users.index') }}?search=' + search" class="block w-full px-3 py-2 hover:bg-gray-50 rounded">
+                                        Utilisateurs / <span class="text-sm text-gray-500" x-text="search"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a :href="'{{ route('teams.index') }}?search=' + search" class="block w-full px-3 py-2 hover:bg-gray-50 rounded">
+                                        Equipe / <span class="text-sm text-gray-500" x-text="search"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 @endauth
             </div>

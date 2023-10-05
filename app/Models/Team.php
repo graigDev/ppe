@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
+use Laravel\Scout\Searchable;
 
 class Team extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     public static function booted(): void
     {
@@ -35,6 +36,13 @@ class Team extends Model
     ];
 
     protected $with = ['folders', 'files'];
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 
     public function objects(): HasMany
     {

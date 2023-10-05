@@ -10,13 +10,25 @@
             <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg relative">
                 <div>
                     <div class="flex flex-wrap items-center p-4 gap-x-3 gap-y-2 sm:gap-y-0">
-                        <form type="get" action="" class="flex-grow order-2 sm:order-1">
-                            <x-text-input type="text" class="w-full" placeholder="Rechercher l'équipe"/>
+                        <form type="get" action="" class="flex-grow order-2 sm:order-1" autocomplete="off">
+                            <x-text-input
+                                type="text"
+                                class="w-full"
+                                name="search"
+                                value="{{ Request::get('search') }}"
+                                placeholder="Rechercher l'équipe"
+                            />
                         </form>
                         <div class="space-x-2 order-1 sm:order-2">
-                            <x-primary-button type="button" x-on:click.prevent="$dispatch('open-modal', 'team-create')">
-                                Nouvelle
-                            </x-primary-button>
+                            @if(Request::get('search'))
+                                <x-secondary-link href="{{ request()->fullUrlWithoutQuery(['search']) }}">
+                                    X
+                                </x-secondary-link>
+                            @else
+                                <x-primary-button type="button" x-on:click.prevent="$dispatch('open-modal', 'team-create')">
+                                    Nouvelle
+                                </x-primary-button>
+                            @endif
                         </div>
                     </div>
 
