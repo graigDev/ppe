@@ -70,7 +70,7 @@
                                                         {{ $user->updated_at->format('M d, Y h:i') }}
                                                     </td>
                                                     <td class="text-sm py-2 px-4">
-                                                       <x-users.action :user="$user"/>
+                                                       <x-users.action :user="$user" :roles="$roles" :teams="$teams"/>
                                                     </td>
                                                 </tr>
                                             @endforeach

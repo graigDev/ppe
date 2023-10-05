@@ -25,6 +25,7 @@
                                     placeholder="Recherche globale"
                                     autocomplete="off"
                                 />
+                                <span class="absolute right-2 text-gray-400 top-1.5 inline-block border rounded text-sm px-2 py-0.5">/</span>
                             </div>
                         </div>
 
@@ -115,20 +116,20 @@
         @auth
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Tableau de border') }}
+                    {{ __('Tableau de bord') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <x-responsive-nav-link :href="route('files.index')" :active="request()->routeIs('files.*')">
                     {{ __('Fichiers') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <x-responsive-nav-link :href="route('teams.index')" :active="request()->routeIs('teams.*')">
                     {{ __('Equipe') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
                     {{ __('Utilisateurs') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                {{--<x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Activités') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link>--}}
             </div>
         @endauth
 

@@ -1,4 +1,4 @@
-@props(['user'])
+@props(['user', 'roles', 'teams'])
 
 <div x-data class="flex justify-end items-center">
     <x-dropdown align="right" width="48">
@@ -23,13 +23,16 @@
                 >
                     {{ __('Details') }}
                 </x-dropdown-link>
-                <x-dropdown-link
-                    href=""
-                    class="text-red-600"
-                    x-on:click.prevent="$dispatch('open-modal', 'user-delete-{{$user->id}}')"
-                >
-                    {{ __('Supprimer') }}
-                </x-dropdown-link>
+
+                @if(auth()->user()->currentRole->slug === 'admin')
+                    <x-dropdown-link
+                        href=""
+                        class="text-red-600"
+                        x-on:click.prevent="$dispatch('open-modal', 'user-delete-{{$user->id}}')"
+                    >
+                        {{ __('Supprimer') }}
+                    </x-dropdown-link>
+                @endif
             </div>
         </x-slot>
     </x-dropdown>
@@ -45,9 +48,57 @@
             </h2>
 
             <div class="my-4">
-                <x-input-label for="user-rename-name" value="Nom de l'utilisateur" />
-                <x-text-input id="user-rename-name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $user->name)" autofocus />
+                <x-input-label for="user-edit-name" :value="__('Nom de l\'utilisateur')" />
+                <x-text-input
+                    id="user-edit-name"
+                    class="block mt-1 w-full"
+                    type="text"
+                    name="name"
+                    :value="old('name', $user->name)"
+                    placeholder="Saisir le nom de l'utilisateur"
+                />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            </div>
+
+            <div class="my-4">
+                <x-input-label for="user-edit-email" :value="__('Saisir son email')" />
+                <x-text-input
+                    id="user-edit-email"
+                    class="block mt-1 w-full"
+                    type="email"
+                    name="email"
+                    :value="old('email', $user->email)"
+                    placeholder="Saisir le mail de l'utilisateur"
+                />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
+            <div class="my-4">
+                <x-input-label for="user-edit-email" :value="__('Attribuer un rôle à l\'utilisateur')" />
+                <x-select-input
+                    id="user-edit-email"
+                    class="block mt-1 w-full"
+                    name="role"
+                >
+                    @foreach($roles as $role)
+                        <option {{ old('role', $user->currentRole->id) === $role->id ?: 'selected' }} value="{{ $role->id }}">{{ $role->name }}</option>
+                    @endforeach
+                </x-select-input>
+                <x-input-error :messages="$errors->get('role')" class="mt-2" />
+            </div>
+
+            <div class="my-4">
+                <x-input-label for="user-edit-team" :value="__('Choisir l\'équipe de l\'utilisateur')" />
+                <x-select-input
+                    id="user-edit-team"
+                    class="block mt-1 w-full"
+                    name="team"
+                >
+                    @foreach($teams as $team)
+                        <option {{ old('team', $user->currentTeam->id) === $team->id ?: 'selected' }} value="{{ $team->id }}">{{ $team->name }}</option>
+                    @endforeach
+                </x-select-input>
+                <x-input-error :messages="$errors->get('team')" class="mt-2" />
             </div>
 
             <div class="mt-6 flex items-center justify-between">

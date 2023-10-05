@@ -23,13 +23,16 @@
                 >
                     {{ __('Details') }}
                 </x-dropdown-link>
-                <x-dropdown-link
-                    href=""
-                    class="text-red-600"
-                    x-on:click.prevent="$dispatch('open-modal', 'team-delete-{{$team->id}}')"
-                >
-                    {{ __('Supprimer') }}
-                </x-dropdown-link>
+
+                @if(auth()->user()->currentRole->slug === 'admin')
+                    <x-dropdown-link
+                        href=""
+                        class="text-red-600"
+                        x-on:click.prevent="$dispatch('open-modal', 'team-delete-{{$team->id}}')"
+                    >
+                        {{ __('Supprimer') }}
+                    </x-dropdown-link>
+                @endif
             </div>
         </x-slot>
     </x-dropdown>

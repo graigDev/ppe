@@ -29,13 +29,16 @@
                 >
                     {{ __('Details') }}
                 </x-dropdown-link>
-                <x-dropdown-link
-                    href=""
-                    class="text-red-600"
-                    x-on:click.prevent="$dispatch('open-modal', 'file-delete-{{$child->id}}')"
-                >
-                    {{ __('Supprimer') }}
-                </x-dropdown-link>
+
+                @if(auth()->user()->currentRole->slug === 'admin')
+                    <x-dropdown-link
+                        href=""
+                        class="text-red-600"
+                        x-on:click.prevent="$dispatch('open-modal', 'file-delete-{{$child->id}}')"
+                    >
+                        {{ __('Supprimer') }}
+                    </x-dropdown-link>
+                @endif
             </div>
         </x-slot>
     </x-dropdown>
@@ -102,20 +105,12 @@
                     <span class="w-full">Télécharger </span>
                     <span class="w-full font-semibold">{{ $child->created_at->format('M d, Y h:i') }}</span>
                 </div>
-                <div class="flex">
-                    <span class="w-full">Type</span>
-                    <span class="w-full font-semibold">image/png</span>
-                </div>
                 @if($child->objectable_type === 'file')
                 <div class="flex">
                     <span class="w-full">Taille</span>
                     <span class="w-full font-semibold uppercase">{{ $child->objectable->sizeForHumans() }}</span>
                 </div>
                 @endif
-                <div class="flex">
-                    <span class="w-full">Partager</span>
-                    <span class="w-full font-semibold">Non</span>
-                </div>
             </div>
 
             <div class="mt-6 flex justify-between">
