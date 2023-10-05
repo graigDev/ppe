@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeamController;
@@ -11,9 +12,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::controller(AppController::class)
+    ->middleware(['auth', 'verified'])
+    ->group(function(){
+     Route::get('dashboard', 'dashboard')->name('dashboard');
+});
 
 Route::controller(FileController::class)
     ->middleware('auth')
