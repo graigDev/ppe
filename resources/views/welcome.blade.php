@@ -4,7 +4,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="relative flex w-full flex-col items-center justify-center text-center">
                 <div class="w-full max-w-lg self-center md:w-3/5 lg:max-w-lg">
-                    <div class="py-5 text-sm md:text-2xl">
+                    <div class="py-5 text-sm md:text-xl">
                         <p>{{ config('app.name') }}, c'est la vie privée pour tous</p>
                     </div>
                 </div>

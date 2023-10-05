@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="flex justify-between">
 
                 @guest
                 <!-- Logo -->
@@ -36,6 +36,16 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+
+                @guest
+                    <div class="hidden space-x-4 h-full sm:-my-px sm:flex mr-4">
+                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                            {{ __("Se connecter") }}
+                        </x-nav-link>
+                    </div>
+                @endguest
+
+
                 @auth
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
